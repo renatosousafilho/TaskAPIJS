@@ -1,7 +1,7 @@
 const { TelegramClient } = require('messaging-api-telegram');
 
-const TOKEN = '1679202227:AAGvsYZ0_ft9OfrdEPbKPI06L8GT9hdW-Ak';
-const CHAT_ID = 87580897;
+const TOKEN = '';
+const CHAT_ID = '';
 
 const client = new TelegramClient({
   accessToken: TOKEN,
