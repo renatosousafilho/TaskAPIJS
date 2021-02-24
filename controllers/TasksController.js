@@ -21,18 +21,20 @@ router.get('/:id', async (req, res) => {
 });
 
 router.post('/', async (req, res) => {
-  const { name } = req.body;
+  const { name, user } = req.body;
 
-  const task = await TaskService.create(name);
+  const { code, message, task } = await TaskService.create(name, user);
+
+  if (!task) return res.status(code).json({ message });
   
-  res.status(StatusCodes.OK).json(task);
+  res.status(code).json(task);
 });
 
 router.put('/:id', async (req, res) => {
   const { id } = req.params;
-  const { name, deadline } = req.body;
+  const { name } = req.body;
 
-  await TaskService.update(id, name, deadline);
+  await TaskService.update(id, name);
 
   res.status(StatusCodes.NO_CONTENT).end();
 });
