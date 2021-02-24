@@ -1,5 +1,6 @@
 const { Router } = require('express');
 const TaskService = require('../services/TasksService');
+const TaskValidations = require('../middlewares/TaskValidations');
 
 const router = Router();
 
@@ -19,19 +20,19 @@ router.get('/:id', async (req, res) => {
   res.status(200).json(task);
 });
 
-router.post('/', async (req, res) => {
-  const { name } = req.body;
+router.post('/', TaskValidations, async (req, res) => {
+  const { name, user } = req.body;
 
-  const task = await TaskService.create(name);
+  const task = await TaskService.create(name, user);
   
   res.status(200).json(task)
 });
 
-router.put('/:id', async (req, res) => {
+router.put('/:id', TaskValidations, async (req, res) => {
   const { id } = req.params;
-  const { name, deadline } = req.body;
+  const { name, user } = req.body;
 
-  await TaskService.update(id, name, deadline);
+  const task = await TaskService.update(id, name, user);
 
   res.status(204).end();
 });
