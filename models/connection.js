@@ -8,10 +8,10 @@ const connection = async () => {
     useNewUrlParser: true,
     useUnifiedTopology: true
   })
-  .then((conn) => conn.db(DATABASE))
-  .catch((err) => {
-    process.exit();
-  });
-}
+    .then((conn) => conn.db(DATABASE))
+    .catch((err) => {
+      process.exit();
+    });
+};
 
 module.exports = connection;
