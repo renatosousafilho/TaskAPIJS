@@ -15,19 +15,19 @@ const create = async (name) => {
   await TelegramClient.sendMessage(name);
 
   return task;
-}
+};
 
 const update = async (id, name, deadline) => {
   await TelegramClient.sendMessage(`${name} foi atualizada!`);
 
   return await Task.update(id, name, deadline);
-}
+};
 
 const remove = async (id) => {
   await TelegramClient.sendMessage(`Tarefa #${id} foi removida!`);
 
   return await Task.remove(id);
-}
+};
 
 
 
@@ -37,4 +37,4 @@ module.exports = {
   findById,
   update,
   remove,
-}
+};
