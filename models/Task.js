@@ -5,12 +5,13 @@ const getAll = async () => {
   return await connection().then(db => db.collection('tasks').find().toArray())
 };
 
-const create = async (name) => {
-  const { insertedId } = await connection().then(db => db.collection('tasks').insertOne({ name }));
+const create = async (name, user) => {
+  const { insertedId } = await connection().then(db => db.collection('tasks').insertOne({ name, user }));
 
   return {
     id: insertedId,
-    name
+    name,
+    user
   }
 }
 
@@ -18,10 +19,10 @@ const findById = async (id) => {
   return await connection().then(db => db.collection('tasks').findOne(ObjectId(id)));
 };
 
-const update = async (id, name, deadline) => {
+const update = async (id, name, user) => {
   return await connection().then(db => db.collection('tasks').updateOne(
     { _id: ObjectId(id) },
-    { $set: { name, deadline } }
+    { $set: { name, user } }
   ));
 }
 

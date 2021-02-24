@@ -9,18 +9,21 @@ const findById = async (id) => {
   return await Task.findById(id);
 };
 
-const create = async (name) => {
-  const task = await Task.create(name);
 
-  await TelegramClient.sendMessage(name);
+const create = async (name, user) => {
+  const task = await Task.create(name, user);
+
+  // await TelegramClient.sendMessage(name);
 
   return task;
 }
 
-const update = async (id, name, deadline) => {
-  await TelegramClient.sendMessage(`${name} foi atualizada!`);
+const update = async (id, name, user) => {
+  // await TelegramClient.sendMessage(`${name} foi atualizada!`);
 
-  return await Task.update(id, name, deadline);
+  const task = await Task.update(id, name, user);
+
+  return task;
 }
 
 const remove = async (id) => {
