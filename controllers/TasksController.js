@@ -1,5 +1,6 @@
 const { Router } = require('express');
 const TaskService = require('../services/TasksService');
+const { validateTask } = require('../middlewares/TaskMiddlewares');
 const { StatusCodes } = require('http-status-codes');
 
 const router = Router();
@@ -20,17 +21,25 @@ router.get('/:id', async (req, res) => {
   res.status(StatusCodes.OK).json(task);
 });
 
-router.post('/', async (req, res) => {
+// router.post('/', async (req, res) => {
+  // const { name, user } = req.body;
+
+  // const { code, message, task } = await TaskService.create(name, user);
+
+  // if (message) return res.status(code).json({message})
+
+  // res.status(200).json(task);
+// });
+
+router.post('/', validateTask, async (req, res) => {
   const { name, user } = req.body;
 
-  const { code, message, task } = await TaskService.create(name, user);
+  const task = await TaskService.create(name, user);
 
-  if (!task) return res.status(code).json({ message });
-  
-  res.status(code).json(task);
+  res.status(200).json(task);
 });
 
-router.put('/:id', async (req, res) => {
+router.put('/:id', validateTask, async (req, res) => {
   const { id } = req.params;
   const { name } = req.body;
 

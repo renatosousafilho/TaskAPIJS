@@ -9,14 +9,20 @@ const findById = async (id) => {
   return await Task.findById(id);
 };
 
+// const create = async (name, user) => {
+//   const validations = TaskSchema.validate(name, user);
+
+//   if (validations.message) return validations;
+
+//   const task = await Task.create(name, user);
+
+//   return { code: 200, task };
+// };
+
 const create = async (name, user) => {
-  const validations = TaskSchema.validate(name, user);
-
-  if (validations.message) return validations;
-
   const task = await Task.create(name, user);
 
-  return { code: 200, task };
+  return task
 };
 
 const update = async (id, name,) => {
