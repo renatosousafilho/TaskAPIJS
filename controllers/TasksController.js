@@ -1,6 +1,9 @@
 const { Router } = require('express');
 const TaskService = require('../services/TasksService');
 const { StatusCodes } = require('http-status-codes');
+const TaskValidations = require('../middlewares/TaskValidations');
+
+
 
 const router = Router();
 
@@ -20,7 +23,7 @@ router.get('/:id', async (req, res) => {
   res.status(StatusCodes.OK).json(task);
 });
 
-router.post('/', async (req, res) => {
+router.post('/', TaskValidations, async (req, res) => {
   const { name } = req.body;
 
   const task = await TaskService.create(name);
@@ -28,11 +31,11 @@ router.post('/', async (req, res) => {
   res.status(StatusCodes.OK).json(task);
 });
 
-router.put('/:id', async (req, res) => {
+router.put('/:id', TaskValidations, async (req, res) => {
   const { id } = req.params;
-  const { name, deadline } = req.body;
+  const { name } = req.body;
 
-  await TaskService.update(id, name, deadline);
+  await TaskService.update(id, name);
 
   res.status(StatusCodes.NO_CONTENT).end();
 });

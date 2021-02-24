@@ -19,10 +19,10 @@ const findById = async (id) => {
   return await connection().then(db => db.collection('tasks').findOne(ObjectId(id)));
 };
 
-const update = async (id, name, deadline) => {
+const update = async (id, name) => {
   return await connection().then(db => db.collection('tasks').updateOne(
     { _id: ObjectId(id) },
-    { $set: { name, deadline } }
+    { $set: { name } }
   ));
 };
 

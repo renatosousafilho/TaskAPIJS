@@ -12,15 +12,15 @@ const findById = async (id) => {
 const create = async (name) => {
   const task = await Task.create(name);
 
-  await TelegramClient.sendMessage(name);
+  // await TelegramClient.sendMessage(name);
 
   return task;
 };
 
-const update = async (id, name, deadline) => {
-  await TelegramClient.sendMessage(`${name} foi atualizada!`);
+const update = async (id, name) => {
+  // await TelegramClient.sendMessage(`${name} foi atualizada!`);
 
-  return await Task.update(id, name, deadline);
+  return await Task.update(id, name);
 };
 
 const remove = async (id) => {
