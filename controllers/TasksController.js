@@ -35,7 +35,7 @@ router.put('/:id', async (req, res) => {
   const { name } = req.body;
 
   await TaskService.update(id, name);
-
+  
   res.status(StatusCodes.NO_CONTENT).end();
 });
 

@@ -1,4 +1,5 @@
 const Task = require('../models/Task');
+const TaskSchema = require('../schemas/TaskSchema');
 
 const getAll = async () => {
   return await Task.getAll();
@@ -9,15 +10,16 @@ const findById = async (id) => {
 };
 
 const create = async (name, user) => {
-  if (!name) return { code: 422, message: "Nome é obrigatório" }
-  if (!user) return { code: 422, message: "Usuário é obrigatório" }
+  const validations = TaskSchema.validate(name, user);
+
+  if (validations.message) return validations;
 
   const task = await Task.create(name, user);
 
   return { code: 200, task };
 };
 
-const update = async (id, name) => {
+const update = async (id, name,) => {
   return await Task.update(id, name);
 };
 
