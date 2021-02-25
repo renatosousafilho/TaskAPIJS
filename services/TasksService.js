@@ -9,6 +9,9 @@ const findById = async (id) => {
   return await Task.findById(id);
 };
 
+const findByName = (name) => (Task.findByName(name));
+
+
 // const create = async (name, user) => {
 //   const validations = TaskSchema.validate(name, user);
 
@@ -22,7 +25,7 @@ const findById = async (id) => {
 const create = async (name, user) => {
   const task = await Task.create(name, user);
 
-  return task
+  return task;
 };
 
 const update = async (id, name,) => {
@@ -39,6 +42,7 @@ module.exports = {
   getAll,
   create,
   findById,
+  findByName,
   update,
   remove,
 };

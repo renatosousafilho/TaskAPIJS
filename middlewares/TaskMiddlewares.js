@@ -10,6 +10,21 @@ const validateTask = (req, res, next) => {
   next();
 };
 
+
+const validateTasks = async (req, res, next) => {
+  const tasks = req.body;
+
+  const promises = tasks.map(({name, user}) => (validate(name, user)));
+
+  const validations = await Promise.all(promises);
+
+  const [{ code, message }] = validations.filter(({code}) => code);
+
+  if (message) return res.status(code).json({ message });
+
+  next();
+};
+
 module.exports = {
   validateTask,
 }
