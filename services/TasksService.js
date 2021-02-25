@@ -22,7 +22,7 @@ const findById = async (id) => {
 const create = async (name, user) => {
   const task = await Task.create(name, user);
 
-  return task
+  return task;
 };
 
 const update = async (id, name,) => {

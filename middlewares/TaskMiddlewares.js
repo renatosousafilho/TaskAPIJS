@@ -12,4 +12,4 @@ const validateTask = (req, res, next) => {
 
 module.exports = {
   validateTask,
-}
+};

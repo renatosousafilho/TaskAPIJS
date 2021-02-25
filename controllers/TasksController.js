@@ -22,13 +22,13 @@ router.get('/:id', async (req, res) => {
 });
 
 // router.post('/', async (req, res) => {
-  // const { name, user } = req.body;
+// const { name, user } = req.body;
 
-  // const { code, message, task } = await TaskService.create(name, user);
+// const { code, message, task } = await TaskService.create(name, user);
 
-  // if (message) return res.status(code).json({message})
+// if (message) return res.status(code).json({message})
 
-  // res.status(200).json(task);
+// res.status(StatusCodes.OK).json(task);
 // });
 
 router.post('/', validateTask, async (req, res) => {
@@ -36,7 +36,7 @@ router.post('/', validateTask, async (req, res) => {
 
   const task = await TaskService.create(name, user);
 
-  res.status(200).json(task);
+  res.status(StatusCodes.OK).json(task);
 });
 
 router.put('/:id', validateTask, async (req, res) => {
