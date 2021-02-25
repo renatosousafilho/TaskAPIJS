@@ -1,5 +1,6 @@
 const { Router } = require('express');
 const TaskService = require('../services/TasksService');
+const { validate } = require('../schemas/TaskSchema');
 const { validateTask } = require('../middlewares/TaskMiddlewares');
 const { StatusCodes } = require('http-status-codes');
 
@@ -21,23 +22,39 @@ router.get('/:id', async (req, res) => {
   res.status(StatusCodes.OK).json(task);
 });
 
+// validando na camada de serivice
 // router.post('/', async (req, res) => {
-  // const { name, user } = req.body;
+//   const { name, user } = req.body;
 
-  // const { code, message, task } = await TaskService.create(name, user);
+//   const { code, message, task } = await TaskService.create(name, user);
 
-  // if (message) return res.status(code).json({message})
+//   if (message) return res.status(code).json({message})
 
-  // res.status(200).json(task);
+//   res.status(StatusCodes.OK).json(task);
 // });
+
+router.post('/batch', async (req, res) => {
+  const tasks = req.body;
+
+
+  // validando na camada de controller
+  // const promises = tasks.map(({name, user}) => (validate(name, user)));
+  // const validations = await Promise.all(promises);
+  // const [{ code, message }] = validations.filter(({code}) => code);
+  // if (message) return res.status(code).json({ message });
+
+  res.status(StatusCodes.OK).json(tasks);
+});
 
 router.post('/', validateTask, async (req, res) => {
   const { name, user } = req.body;
 
   const task = await TaskService.create(name, user);
 
-  res.status(200).json(task);
+  res.status(StatusCodes.OK).json(task);
 });
+
+
 
 router.put('/:id', validateTask, async (req, res) => {
   const { id } = req.params;

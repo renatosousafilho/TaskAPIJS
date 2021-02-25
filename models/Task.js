@@ -20,6 +20,10 @@ const findById = async (id) => {
   return await connection().then(db => db.collection('tasks').findOne(ObjectId(id)));
 };
 
+const findByName = async (name) => {
+  return await connection().then(db => db.collection('tasks').findOne({name}));
+};
+
 const update = async (id, name) => {
   return await connection().then(db => db.collection('tasks').updateOne(
     { _id: ObjectId(id) },
@@ -37,6 +41,7 @@ module.exports = {
   getAll,
   create,
   findById,
+  findByName,
   update,
   remove,
 };
