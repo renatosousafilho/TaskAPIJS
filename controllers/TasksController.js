@@ -32,6 +32,16 @@ router.get('/:id', async (req, res) => {
 // });
 
 router.post('/', validateTask, async (req, res) => {
+  /*  #swagger.parameters['name'] = {
+                 in: 'body',
+                 type: "string",
+                 description: "Name"
+  } */
+  /*  #swagger.parameters['user'] = {
+                 in: 'body',
+                 type: "string",
+                 description: "user"
+  } */
   const { name, user } = req.body;
 
   const task = await TaskService.create(name, user);
@@ -42,6 +52,17 @@ router.post('/', validateTask, async (req, res) => {
 router.put('/:id', validateTask, async (req, res) => {
   const { id } = req.params;
   const { name } = req.body;
+
+  /*  #swagger.parameters['name'] = {
+                 in: 'body',
+                 type: "string",
+                 description: "Name"
+  } */
+  /*  #swagger.parameters['user'] = {
+                 in: 'body',
+                 type: "string",
+                 description: "user"
+  } */
 
   await TaskService.update(id, name);
   

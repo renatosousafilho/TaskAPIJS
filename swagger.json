@@ -1,9 +1,9 @@
 {
   "swagger": "2.0",
   "info": {
-    "version": "1.0.0",
-    "title": "REST API",
-    "description": ""
+    "title": "Tasks API",
+    "description": "App para gerenciar tarfas",
+    "version": "1.0.0"
   },
   "host": "localhost:3000",
   "basePath": "/",
@@ -22,8 +22,23 @@
         "responses": {}
       }
     },
-    "/": {
-      "get": {
+    "/foo": {
+      "post": {
+        "tags": [],
+        "description": "",
+        "parameters": [
+          {
+            "name": "authorization",
+            "in": "header",
+            "type": "string",
+            "description": "Token JWT"
+          }
+        ],
+        "responses": {}
+      }
+    },
+    "/login": {
+      "post": {
         "tags": [],
         "description": "",
         "parameters": [],
@@ -40,7 +55,20 @@
       "post": {
         "tags": [],
         "description": "",
-        "parameters": [],
+        "parameters": [
+          {
+            "name": "name",
+            "in": "body",
+            "type": "string",
+            "description": "Name"
+          },
+          {
+            "name": "user",
+            "in": "body",
+            "type": "string",
+            "description": "user"
+          }
+        ],
         "responses": {}
       }
     },
@@ -67,6 +95,18 @@
             "in": "path",
             "required": true,
             "type": "string"
+          },
+          {
+            "name": "name",
+            "in": "body",
+            "type": "string",
+            "description": "Name"
+          },
+          {
+            "name": "user",
+            "in": "body",
+            "type": "string",
+            "description": "user"
           }
         ],
         "responses": {}
@@ -86,5 +126,23 @@
       }
     }
   },
-  "definitions": {}
+  "definitions": {
+    "Task": {
+      "type": "object",
+      "properties": {
+        "name": {
+          "type": "string",
+          "example": "Programar"
+        },
+        "user": {
+          "type": "string",
+          "example": "Gordinho"
+        }
+      },
+      "required": [
+        "name",
+        "user"
+      ]
+    }
+  }
 }
