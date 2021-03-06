@@ -19,6 +19,7 @@ app.use(bodyParser.json());
 app.use('/tasks', TasksController);
 
 app.get('/', (req, res) => {
+  const { authorization } = req.headers;
   res.status(StatusCodes.OK).json({ok: true});
 });
 
