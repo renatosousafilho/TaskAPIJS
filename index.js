@@ -14,6 +14,6 @@ app.get('/', (req, res) => {
   res.status(StatusCodes.OK).json({ok: true});
 });
 
-const PORT = 3000;
+const PORT = process.env.PORT || 3000;
 
 app.listen(PORT);

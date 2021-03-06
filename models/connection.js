@@ -11,6 +11,7 @@ const connection = async () => {
   })
     .then((conn) => conn.db(DATABASE))
     .catch((err) => {
+      console.err(err);
       process.exit();
     });
 };
