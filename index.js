@@ -4,7 +4,15 @@ const bodyParser = require('body-parser');
 
 const { StatusCodes } = require('http-status-codes');
 
+const swaggerUi = require('swagger-ui-express');
+const swaggerDocument = require('./swagger.json');
+
+
 const app = express();
+
+app.use('/api-docs', swaggerUi.serve);
+app.get('/api-docs', swaggerUi.setup(swaggerDocument));
+
 
 app.use(bodyParser.json());
 
