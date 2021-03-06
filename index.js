@@ -1,8 +1,10 @@
 const express = require('express');
 const TasksController = require('./controllers/TasksController');
+const LoginController = require('./controllers/LoginController');
+const SignUpController = require('./controllers/SignUpController');
+
+const { validateAuthorization } = require('./middlewares/AuthMiddleware');
 const bodyParser = require('body-parser');
-const createToken = require('./auth/createToken');
-const validateToken = require('./auth/validateToken');
 
 const { StatusCodes } = require('http-status-codes');
 
@@ -12,38 +14,28 @@ const swaggerDocument = require('./swagger.json');
 
 const app = express();
 
-app.use('/api-docs', swaggerUi.serve);
-app.get('/api-docs', swaggerUi.setup(swaggerDocument));
-
-
 app.use(bodyParser.json());
 
+app.use('/api-docs', swaggerUi.serve);
+app.get('/api-docs', swaggerUi.setup(swaggerDocument));
+app.use('/signup', SignUpController);
+app.use('/login', LoginController);
 app.use('/tasks', TasksController);
 
-app.post('/foo', (req, res) => {
+
+
+app.post('/foo', validateAuthorization, (req, res) => {
   /*  #swagger.parameters['authorization'] = {
                  in: 'header',
                  type: "string",
                  description: "Token JWT"
   } */
-  const { authorization: token } = req.headers;
-
-  if (!token) 
-    return res.status(StatusCodes.FORBIDDEN).json({message: 'Token é obrigatório'});
-
-  const payload = validateToken(token);
-
-  if (!payload) 
-    return res.status(StatusCodes.FORBIDDEN).json({message: 'Não autorizado'});
+  
 
   res.status(StatusCodes.OK).json({ok: true});
 });
 
-app.post('/login', (req, res) => {
-  const token = createToken({user: 'renato'});
 
-  res.status(StatusCodes.OK).json({ token });
-});
 
 const PORT = process.env.PORT || 3000;
 
