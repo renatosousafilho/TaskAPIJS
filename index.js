@@ -22,6 +22,9 @@ app.use('/signup', SignUpController);
 app.use('/login', LoginController);
 app.use('/tasks', TasksController);
 
+app.get('/', (req, res) => {
+  res.status(StatusCodes.OK).send(`Rodando no proceso ${process.pid}`);
+});
 
 
 app.post('/foo', validateAuthorization, (req, res) => {
