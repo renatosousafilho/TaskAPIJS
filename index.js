@@ -39,4 +39,4 @@ app.post('/foo', validateAuthorization, (req, res) => {
 
 const PORT = process.env.PORT || 3000;
 
-app.listen(PORT);
+app.listen(PORT, () => console.log(`App rodando no processo ${process.pid}`));
