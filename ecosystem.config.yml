@@ -1,0 +1,6 @@
+apps:
+  - name: app-pm2
+    script: ./index.js
+    watch: true
+    exec_mode: cluster
+    instances: 6
